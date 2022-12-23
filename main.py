@@ -264,4 +264,4 @@ async def on_reaction_add(reaction, user):
         await reaction.message.reply(str(user.display_name) + space + congratulate)
 
 
-bot.run('OTAwNTE4MDkyOTQ0MzI2Njg2.GRk5SP.a5xY_nFtyMYt48cEEijYEjMRG1ddX5kPpvqPAw')
+bot.run('YOUR-TOKEN')
