@@ -42,6 +42,10 @@ Translator are welcome!
 
 Please make sure to update tests as appropriate.
 
+## Contributor
+
+Special thanks to Saprinox
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
