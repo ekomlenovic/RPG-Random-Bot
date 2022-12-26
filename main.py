@@ -99,54 +99,56 @@ async def stat(ctx):
     file_path = serveur_path(ctx)
     if not os.path.exists(f"{ctx.guild.name}/users/"):
             os.makedirs(f"{ctx.guild.name}/users/")
+    try:
         # Open the file in read mode
-    with open(file_path, "r") as f:
-        # Read the lines of the file into a list
-        lines = f.readlines()
+        with open(file_path, "r") as f:
+            # Read the lines of the file into a list
+            lines = f.readlines()
 
-    # Initialize a dictionary to store the data
-    data = {}
+        # Initialize a dictionary to store the data
+        data = {}
 
-    # Process the lines of the file
-    for line in lines:
-        # Split the line by the colon and space
-        user, numbers = line.strip().split(": ")
-        # Convert the string of numbers into a list of integers
-        numbers = [float(x) for x in numbers.split(", ")]
-        # Add the data to the dictionary
-        data[user] = numbers
+        # Process the lines of the file
+        for line in lines:
+            # Split the line by the colon and space
+            user, numbers = line.strip().split(": ")
+            # Convert the string of numbers into a list of integers
+            numbers = [float(x) for x in numbers.split(", ")]
+            # Add the data to the dictionary
+            data[user] = numbers
 
-    # Initialize a dictionary to store the frequency of the numbers by range
-    frequencies = {i: 0 for i in range(0, 101, 10)}
-
-    # Process the data to count the frequency of the numbers by range for each user
-    for user, numbers in data.items():
-        # Reset the frequencies for the current user
+        # Initialize a dictionary to store the frequency of the numbers by range
         frequencies = {i: 0 for i in range(0, 101, 10)}
-        for number in numbers:
-            range_start = number // 10 * 10
-            frequencies[range_start] += 1
 
-        # Get the names of the ranges
-        ranges = list(frequencies.keys())
+        # Process the data to count the frequency of the numbers by range for each user
+        for user, numbers in data.items():
+            # Reset the frequencies for the current user
+            frequencies = {i: 0 for i in range(0, 101, 10)}
+            for number in numbers:
+                range_start = number // 10 * 10
+                frequencies[range_start] += 1
 
-        # Get the frequencies of the numbers by range
-        counts = list(frequencies.values())
+            # Get the names of the ranges
+            ranges = list(frequencies.keys())
 
-        # Plot the data for the current user
-        plt.bar(ranges, counts)
-        plt.xlabel(value_of_roll)
-        plt.ylabel(frequency)
-        plt.title(f" {freq_numb} {user} ({total}: {len(numbers)})")
-        filename = f"{ctx.guild.name}/users/{user}_plot.png"
-        plt.savefig(filename)
-        #plt.show()
-        plt.clf()
-        
+            # Get the frequencies of the numbers by range
+            counts = list(frequencies.values())
 
-    # Send the file in Discord
-    x = send_to_discord(ctx)
-    await ctx.send(file=x) 
+            # Plot the data for the current user
+            plt.bar(ranges, counts)
+            plt.xlabel(value_of_roll)
+            plt.ylabel(frequency)
+            plt.title(f" {freq_numb} {user} ({total}: {len(numbers)})")
+            filename = f"{ctx.guild.name}/users/{user}_plot.png"
+            plt.savefig(filename)
+            #plt.show()
+            plt.clf()
+        # Send the file in Discord
+        x = send_to_discord(ctx)
+        await ctx.send(file=x)
+
+    except:
+        await ctx.send("There is no roll data for this server, try : !r") 
 
 def send_to_discord(ctx):
     images = []
@@ -222,21 +224,24 @@ async def save(ctx):
         os.makedirs(file_path)
 
     file_list = os.listdir(f"{ctx.guild.name}/users/")
+    try:
     # Calculate the total width and maximum height of the result image
-    png_files = [f for f in file_list if f.endswith('.png')]
-    for file_name in png_files:
-        # Save the png image to a file in the save folder
-        with open(ctx.guild.name+ "/users/" + file_name, 'rb') as f:
-            image = f.read()
-        with open(os.path.join(file_path, file_name), 'wb') as f:
-            f.write(image)
+        png_files = [f for f in file_list if f.endswith('.png')]
+        for file_name in png_files:
+            # Save the png image to a file in the save folder
+            with open(ctx.guild.name+ "/users/" + file_name, 'rb') as f:
+                image = f.read()
+            with open(os.path.join(file_path, file_name), 'wb') as f:
+                f.write(image)
 
-    with open(ctx.guild.name + "/statistic.png", 'rb') as f:
-            image = f.read()
-    with open(os.path.join(file_path, "statistic.png"), 'wb') as f:
-            f.write(image)
-    # Send a message to confirm that the save was successful
-    await ctx.send('Files saved to the save folder!')
+        with open(ctx.guild.name + "/statistic.png", 'rb') as f:
+                image = f.read()
+        with open(os.path.join(file_path, "statistic.png"), 'wb') as f:
+                f.write(image)
+        # Send a message to confirm that the save was successful
+        await ctx.send('Files saved to the save folder!')
+    except:
+        await ctx.send('There is no data, try running the !stat command.')
 
 
 
