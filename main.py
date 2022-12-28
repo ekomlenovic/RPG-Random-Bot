@@ -44,7 +44,7 @@ async def r(ctx, number: int = 100):
     file_path = serveur_path(ctx)
     if not os.path.exists(ctx.guild.name):
         os.makedirs(ctx.guild.name)
-    value = random.randrange(0, number+1)
+    value = random.randrange(1, number+1)
     _value = value/number*100
     user = ctx.author.display_name
     found = False
