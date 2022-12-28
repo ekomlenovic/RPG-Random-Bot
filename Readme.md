@@ -16,7 +16,7 @@ In main.py put your discord bot token in
 bot.run('Your_TOKEN')
 ```
 
-Or go in [release tab](https://github.com/ekomlenovic/RPG-Random-Bot/releases/tag/v1.0.0) and download [main.exe](https://github.com/ekomlenovic/RPG-Random-Bot/releases/download/v1.0.0/main.exe)  
+Or go in [release tab](https://github.com/ekomlenovic/RPG-Random-Bot/releases) and download .exe
 And add it to your server : https://discord.com/oauth2/authorize?client_id=900518092944326686&scope=bot&permissions=8
 
 ## Usage
