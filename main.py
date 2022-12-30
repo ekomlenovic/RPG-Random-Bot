@@ -64,7 +64,7 @@ async def r(ctx, number: int = 100):
         await x.add_reaction('\N{WHITE HEAVY CHECK MARK}')
 
 
-    with open(file_path, "w") as f:
+    with open(file_path, "w", encoding="utf-8") as f:
         for entry in random_numbers:
             f.write(entry[0] + ": " + ", ".join([str(x) for x in entry[1:]]) + "\n")
 
@@ -73,9 +73,9 @@ def load(guild_name):
     random_numbers = []
     # Open the file in read mode
     if not os.path.exists(guild_name + "/roll.txt"):
-        f = open(guild_name + "/roll.txt", "x")
+        f = open(guild_name + "/roll.txt", "x", encoding="utf-8")
     file_path = f"{guild_name}/roll.txt"
-    with open(file_path, "r") as f:
+    with open(file_path, "r", encoding="utf-8") as f:
         # Read the lines of the file into a list
         lines = f.readlines()
 
@@ -101,7 +101,7 @@ async def stat(ctx):
             os.makedirs(f"{ctx.guild.name}/users/")
     try:
         # Open the file in read mode
-        with open(file_path, "r") as f:
+        with open(file_path, "r", encoding="utf-8") as f:
             # Read the lines of the file into a list
             lines = f.readlines()
 
