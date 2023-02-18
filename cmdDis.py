@@ -1,5 +1,8 @@
 import discord
 from discord.ext import commands
+import os
+
+import locale
 lang = locale.getdefaultlocale()
 if lang[0] == 'fr_FR':
     from lang.fr import *
@@ -25,6 +28,12 @@ intents = discord.Intents.default()
 intents.message_content = True
 bot = Mybot(command_prefix='!',intents=intents)
 
+def serveur_path(ctx):
+    guild_name = ctx.guild.name
+    file_path = f"{guild_name}/roll.txt"
+    return file_path
+
+
 @bot.command(
     description = descriptionR,
     help = helpR
@@ -33,7 +42,7 @@ async def r(ctx, number: int = 100):
     user = ctx.author.display_name
     value = rand.rand(number)
     rand.ajouterValeur(value, ctx.guild.name, user)
-    x = await ctx.send(f"```{ctx.author.display_name} "+ made + value + space + on + "[" + str(number) + "]```")
+    x = await ctx.send(f"```{ctx.author.display_name} "+ made + str(value) + space + on + "[" + str(number) + "]```")
     await ctx.message.delete()
     if value == rand.min:
         await x.add_reaction('\N{CROSS MARK}')

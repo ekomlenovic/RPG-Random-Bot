@@ -1,9 +1,10 @@
 import random #Cette bibilothèque permet de faire du randome
 import numpy as np #Numpy (pour "Numeric Python") est une bibliothèque de Python qui fournit des outils avancés pour la manipulation de tableaux et de matrices de données numériques.
 import os #permet de lire ecrire ou autre fonction de de système (compatible linux mac et windows)
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt # permet de générer des graphiques
 from PIL import Image
-from datetime import datetime
+from datetime import datetime # permet de récupérer la date courante
+import pandas # permet l'utiliqation de fonction bassqie sur des tab, liste ect
 
 min : int = 1
 
@@ -37,9 +38,13 @@ def rand(max: int = 100):
         value = random.randrange(min, max + 1)
     else:
         value = random.randrange(0, max + 1)
-    value / (max + 1 - min ) * 100
+    return value / (max + 1 - min ) * 100
 
-def ajouterValeur(value : int = 0, nomServ : str = 'erreurNomServ', nomUser = 'erreurNomUser'  ):
+def ajouterValeur(value = "Error", nomServ : str = 'erreurNomServ', nomUser = 'erreurNomUser'  ):
+    print("je veux ajouter la valeur :" + str(value))
+    if value == "Error":
+        print("pas de valeur a ajouter")
+        return False
     if nomServ == 'erreurNomServ':
         print('Erreur pour ajouter une valeur dans les stats pas de nom serveur indiquer')
         return False
@@ -50,6 +55,7 @@ def ajouterValeur(value : int = 0, nomServ : str = 'erreurNomServ', nomUser = 'e
     if not os.path.exists(nomServ):
         os.makedirs(nomServ)
     random_numbers = load(nomServ)
+    found = False
     for entry in random_numbers:
         if entry[0] == nomUser:
             entry.append(value)
@@ -60,6 +66,8 @@ def ajouterValeur(value : int = 0, nomServ : str = 'erreurNomServ', nomUser = 'e
     with open(file_path, "w", encoding="utf-8") as f:
         for entry in random_numbers:
             f.write(entry[0] + ": " + ", ".join([str(x) for x in entry[1:]]) + "\n")
+    print("not me ?")
+    return value
             
 def send_to_discord(ctx):
     images = []
