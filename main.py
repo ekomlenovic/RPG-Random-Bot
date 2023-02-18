@@ -1,4 +1,4 @@
 
 import locale
 import cmdDis
-cmdDis.lancerBot('MTAyNDM3ODY5MTA0NTgzMDcwNw.GegSfH.1weK52OhIrC4YuBC4mpgyO277ZxynKlbVDnzgM')
+cmdDis.lancerBot('yourToken')
