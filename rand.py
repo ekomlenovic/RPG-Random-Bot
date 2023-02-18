@@ -41,7 +41,6 @@ def rand(max: int = 100):
     return value / (max + 1 - min ) * 100
 
 def ajouterValeur(value = "Error", nomServ : str = 'erreurNomServ', nomUser = 'erreurNomUser'  ):
-    print("je veux ajouter la valeur :" + str(value))
     if value == "Error":
         print("pas de valeur a ajouter")
         return False
@@ -66,7 +65,6 @@ def ajouterValeur(value = "Error", nomServ : str = 'erreurNomServ', nomUser = 'e
     with open(file_path, "w", encoding="utf-8") as f:
         for entry in random_numbers:
             f.write(entry[0] + ": " + ", ".join([str(x) for x in entry[1:]]) + "\n")
-    print("not me ?")
     return value
             
 def send_to_discord(ctx):

@@ -40,7 +40,7 @@ def serveur_path(ctx):
 )
 async def r(ctx, number: int = 100):
     user = ctx.author.display_name
-    value = rand.rand(number)
+    value = int (rand.rand(number))
     rand.ajouterValeur(value, ctx.guild.name, user)
     x = await ctx.send(f"```{ctx.author.display_name} "+ made + str(value) + space + on + "[" + str(number) + "]```")
     await ctx.message.delete()
