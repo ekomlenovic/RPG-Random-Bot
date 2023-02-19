@@ -19,3 +19,7 @@ total = "Total"
 connected_on = "Je suis connecté sur  "
 descriptionR = "Permet de faire un lancer un dée entre une valeur min (1 par default) et par un maximum que vous pouvez présisez de cette manière : !r 30"
 helpR = "Astuce si vous ne spésifier pas de valeur alors le lancer se fera entre 100 valeur, si vous avez essayer de faire un lancer inférieur au minum alors le min sera mit a 1 pour se lancer"
+
+
+
+stat_player = "Your stats !"
