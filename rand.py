@@ -33,15 +33,15 @@ def load(guild_name):
         random_numbers.append([user, *numbers])
     return random_numbers
 
-def rand(max: int = 100):
+def rand(max:int = 100):
     if(min < max):
         value = random.randrange(min, max + 1)
     else:
         value = random.randrange(0, max + 1)
     return value
 
-def ajouterValeur(value = "Error", nomServ : str = 'erreurNomServ', nomUser = 'erreurNomUser'  ):
-    if value == "Error":
+def ajouterValeur(value: int = -1, nomServ : str = 'erreurNomServ', nomUser = 'erreurNomUser'  ):
+    if value == -1:
         print("pas de valeur a ajouter")
         return False
     if nomServ == 'erreurNomServ':

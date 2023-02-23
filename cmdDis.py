@@ -38,9 +38,13 @@ def serveur_path(ctx):
     description = descriptionR,
     help = helpR
 )
-async def r(ctx, number: int = 100):
+async def r(ctx,number: int = 100):
     user = ctx.author.display_name
+<<<<<<< HEAD
     value = int (rand.rand(number))
+=======
+    value = int(rand.rand(number))
+>>>>>>> e56e9016650843310b9dd8485e052bd133e63f7f
     x = await ctx.send(f"```{ctx.author.display_name} "+ made + str(value) + space + on + "[" + str(number) + "]```")
     value = (value / (number + 1 - rand.min ) * 100)
     rand.ajouterValeur(value, ctx.guild.name, user)
