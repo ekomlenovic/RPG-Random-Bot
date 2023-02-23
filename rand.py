@@ -38,7 +38,7 @@ def rand(max: int = 100):
         value = random.randrange(min, max + 1)
     else:
         value = random.randrange(0, max + 1)
-    return value / (max + 1 - min ) * 100
+    return value
 
 def ajouterValeur(value = "Error", nomServ : str = 'erreurNomServ', nomUser = 'erreurNomUser'  ):
     if value == "Error":
