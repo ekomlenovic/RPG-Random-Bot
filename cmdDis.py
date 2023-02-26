@@ -1,6 +1,9 @@
 import discord
 from discord.ext import commands
 import os
+import matplotlib.pyplot as plt
+from datetime import datetime
+from PIL import Image
 
 import locale
 lang = locale.getdefaultlocale()
@@ -40,11 +43,7 @@ def serveur_path(ctx):
 )
 async def r(ctx,number: int = 100):
     user = ctx.author.display_name
-<<<<<<< HEAD
-    value = int (rand.rand(number))
-=======
     value = int(rand.rand(number))
->>>>>>> e56e9016650843310b9dd8485e052bd133e63f7f
     x = await ctx.send(f"```{ctx.author.display_name} "+ made + str(value) + space + on + "[" + str(number) + "]```")
     value = (value / (number + 1 - rand.min ) * 100)
     rand.ajouterValeur(value, ctx.guild.name, user)
@@ -71,9 +70,13 @@ async def stat(ctx):
 
         # Initialize a dictionary to store the data
         data = {}
-
+        print(lines)
         # Process the lines of the file
         for line in lines:
+            print("la ligne")
+            print(line)
+            print("les lignes")
+            print(lines)
             # Split the line by the colon and space
             user, numbers = line.strip().split(": ")
             # Convert the string of numbers into a list of integers
@@ -97,7 +100,7 @@ async def stat(ctx):
 
             # Get the frequencies of the numbers by range
             counts = list(frequencies.values())
-
+            print("oui")
             # Plot the data for the current user
             plt.bar(ranges, counts)
             plt.xlabel(value_of_roll)
@@ -181,6 +184,32 @@ async def on_command_error(ctx, error):
         # For other types of errors, print the error to the console
         print(error)
 
+def send_to_discord(ctx):
+    images = []
+    
+    file_list = os.listdir(f"{ctx.guild.name}/users/")
+
+    png_files = [f for f in file_list if f.endswith('.png')]
+
+    for file_name in png_files:
+        file_path = os.path.join(f"{ctx.guild.name}/users/", file_name)
+        image = Image.open(file_path)
+        images.append(image)
+    
+    total_width = sum(image.width for image in images)
+    max_height = max(image.height for image in images)
+
+    result_image = Image.new('RGB', (total_width, max_height))
+    x_offset = 0
+    for image in images:
+        result_image.paste(image, (x_offset, 0))
+        x_offset += image.width
+
+    result_image.save(f"{ctx.guild.name}/statistic.png")
+
+    result_file = discord.File(f"{ctx.guild.name}/statistic.png")
+
+    return result_file
 
 @bot.event
 async def on_reaction_add(reaction, user):
