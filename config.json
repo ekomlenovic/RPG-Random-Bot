@@ -1,0 +1,5 @@
+{
+    "token": "Your_Bot_Token_Or_Ask_Me_For_It",
+    "prefix": "!",
+    "min": 1
+}
