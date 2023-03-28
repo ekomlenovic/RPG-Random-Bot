@@ -11,7 +11,7 @@ from datetime import datetime
 import csv
 import pandas as pd
 from bot.commands_aux import *
-
+import shutil
 
 lang = locale.getdefaultlocale()
 if lang[0] == 'fr_FR':
@@ -117,6 +117,7 @@ async def save(ctx):
                 image = f.read()
         with open(os.path.join(file_path, "statistic.png"), 'wb') as f:
                 f.write(image)
+        shutil.copy2(f"{ctx.guild.name}/roll.csv", file_path)
         # Send a message to confirm that the save was successful
         await ctx.send('Files saved to the save folder!')
     except:
