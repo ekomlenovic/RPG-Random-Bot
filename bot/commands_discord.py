@@ -55,9 +55,9 @@ data = {}
     help='This command rolls a random number between 0 and the specified number (default: 100). For example, to roll a number between 0 and 50, you can use the command "!r 50".'
 )
 async def r(ctx, number: int = 100):
-    loadCSV(ctx, data)
     if not os.path.exists(ctx.guild.name):
         os.makedirs(ctx.guild.name)
+    loadCSV(ctx, data)
     value = random.randrange(MIN, number+1)
     _value = value/number*100
     user = ctx.author.display_name
