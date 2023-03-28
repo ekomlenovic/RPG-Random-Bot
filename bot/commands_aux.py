@@ -55,6 +55,7 @@ def stat(name, data):
 
     name_stats = {
         'Name': name,
+        'Number of Rolls': len(name_values),
         'Sum': name_sum,
         'Mean': name_mean,
         'Min': name_min,
@@ -80,7 +81,7 @@ def plot_aux(ctx, name, data):
     ax.set_xlabel('Value')
     ax.set_ylabel('Frequency')
     ax.set_xticks(bins)
-    ax.set_title(f'{name}_statistics')
+    ax.set_title(f'{name}_statistics({plot_data["Number of Rolls"]} rolls)')
     #plt.show()
     fig.savefig(f"{ctx.guild.name}/users/{name}_plot.png")
 
