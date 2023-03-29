@@ -7,18 +7,20 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-def loadCSV(ctx, data):
+def loadCSV(ctx):
+    data = {}
     try:
-        with open(f"{ctx.guild.name}/roll.csv", mode="r", newline="") as file:
+        with open(f"{ctx.guild.name}/roll.csv", mode="r", encoding='utf-8', newline="") as file:
             reader = csv.reader(file)
             for i, row in enumerate(reader):
                 if i == 0:
                     continue
-                data[row[0]] = [float(x) for x in row[1:]]
+                else:
+                    data[row[0]] = [float(x) for x in row[1:]]
         return data
     except FileNotFoundError:
         print("File not found, creating the file")
-        with open(f"{ctx.guild.name}/roll.csv", mode="w", newline=""):
+        with open(f"{ctx.guild.name}/roll.csv", mode="w", encoding='utf-8', newline=""):
             pass
 
 def update_csv(ctx, name, value, data):
@@ -30,7 +32,7 @@ def update_csv(ctx, name, value, data):
         data[name].append(value)
     else:
         data[name] = [value]
-    with open(f"{ctx.guild.name}/roll.csv", mode="w", newline="") as file:
+    with open(f"{ctx.guild.name}/roll.csv", mode="w", encoding='utf-8', newline="") as file:
         writer = csv.writer(file)
         writer.writerow(["Name"] + [f"Value_{i}" for i in range(0, size+1)])
         for name, values in data.items():
