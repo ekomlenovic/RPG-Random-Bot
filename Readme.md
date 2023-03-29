@@ -9,15 +9,20 @@
 [pip](https://pip.pypa.io/en/stable/) to install [discord.py](https://discordpy.readthedocs.io/en/stable/).
 
 ```bash
-pip install discord numpy matplotlib 
+pip install discord numpy matplotlib pandas
 ```
-In main.py put your discord bot token in 
-```python
-bot.run('Your_TOKEN')
-```
+In **config.json** put your discord bot token in 
+```json
+{
+    "token": "Your_Bot_Token_Or_Ask_Me_For_It",
+    "prefix": "!",
+    "min": 1
+}
+```  
+You can also modify the min and the prefix of le bot  
 
-Or go in [release tab](https://github.com/ekomlenovic/RPG-Random-Bot/releases) and download .exe  
-And add it to your server : https://discord.com/oauth2/authorize?client_id=900518092944326686&scope=bot&permissions=8
+**Or go in [release tab](https://github.com/ekomlenovic/RPG-Random-Bot/releases) and download .exe**  
+And add it to your server : **https://discord.com/oauth2/authorize?client_id=900518092944326686&scope=bot&permissions=8**
 
 ## Usage
 
