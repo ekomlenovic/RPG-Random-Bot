@@ -21,7 +21,7 @@ def loadCSV(ctx):
     except FileNotFoundError:
         print("File not found, creating the file")
         with open(f"{ctx.guild.name}/roll.csv", mode="w", encoding='utf-8', newline=""):
-            pass
+            return data
 
 def update_csv(ctx, name, value, data):
     size = 0
