@@ -57,12 +57,10 @@ data = {}
 async def r(ctx, number: int = 100):
     if not os.path.exists(ctx.guild.name):
         os.makedirs(ctx.guild.name)
-    loadCSV(ctx, data)
     value = random.randrange(MIN, number+1)
-    _value = value/number*100
+    _value = value / number * 100
     user = ctx.author.display_name
-
-    update_csv(ctx, user, _value, data)
+    update_csv(ctx, user, _value, loadCSV(ctx))
     x = await ctx.send(f"```{ctx.author.display_name} "+ made + str(value) + space + on + "[" + str(number) + "]```")
     await ctx.message.delete()
 
@@ -190,12 +188,6 @@ async def on_reaction_add(reaction, user):
         await reaction.message.reply(str(user.display_name) + space + laught)
     elif emoji == '\N{WHITE HEAVY CHECK MARK}':
         await reaction.message.reply(str(user.display_name) + space + congratulate)
-
-
-
-
-
-
 
 
 bot.run(TOKEN)
