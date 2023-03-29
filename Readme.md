@@ -1,3 +1,4 @@
+![](https://repository-images.githubusercontent.com/581593941/15fbc490-038b-44f2-8f94-a52f678e3245)
 # RPG Random BOT / Dice Roller
 
 **RPG Random BOT/ Dice Roller** is Discord Bot for rolling dice.
