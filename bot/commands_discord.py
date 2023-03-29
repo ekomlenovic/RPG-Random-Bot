@@ -102,8 +102,8 @@ async def save(ctx):
     if not os.path.exists(file_path):
         os.makedirs(file_path)
 
-    file_list = os.listdir(f"{ctx.guild.name}/users/")
     try:
+        file_list = os.listdir(f"{ctx.guild.name}/users/")
     # Calculate the total width and maximum height of the result image
         png_files = [f for f in file_list if f.endswith('.png')]
         for file_name in png_files:
@@ -117,11 +117,17 @@ async def save(ctx):
                 image = f.read()
         with open(os.path.join(file_path, "statistic.png"), 'wb') as f:
                 f.write(image)
+        with open(ctx.guild.name + "/compare.png", 'rb') as f:
+                image = f.read()
+        with open(os.path.join(file_path, "compare.png"), 'wb') as f:
+                f.write(image)
+        
+        
         shutil.copy2(f"{ctx.guild.name}/roll.csv", file_path)
         # Send a message to confirm that the save was successful
         await ctx.send('Files saved to the save folder!')
     except:
-        await ctx.send(f'There is no data, try running the {PREFIX}plot command.')
+        await ctx.send(f'There is no data, try running the {PREFIX}plot, {PREFIX}stat commands for saving all data.')
 
 
 @bot.command(
@@ -142,6 +148,21 @@ async def plot(ctx, user : discord.User = None):
             await ctx.send(file=discord.File(f"{ctx.guild.name}/users/{user.display_name}_plot.png"))
         else:
             await ctx.send(file = x)
+    except FileNotFoundError:
+        await ctx.send(f'There is no data, try running the {PREFIX}r command.')
+
+
+
+@bot.command(
+    name='stat',
+    description='Compare players rolls',
+    help='This command Compare players rolls.'
+)
+async def stat(ctx):
+    try:
+        ctx_data = pd.read_csv(f"{ctx.guild.name}/roll.csv", sep=',')
+        x = stat_player_value(ctx, ctx_data)
+        await ctx.send(file=discord.File(x))
     except FileNotFoundError:
         await ctx.send(f'There is no data, try running the {PREFIX}r command.')
 

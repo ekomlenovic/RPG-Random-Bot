@@ -115,3 +115,20 @@ def send_to_discord(ctx):
     result_file = discord.File(f"{ctx.guild.name}/statistic.png")
 
     return result_file
+
+
+def stat_player_value(ctx, data):
+    X = data.iloc[:, 1:].values
+    labels = data.iloc[:, 0].values   
+    fig , ax= plt.subplots()  
+    for i in range(labels.size):
+        plt.plot(X[i], label=labels[i])
+    ax.set_xlabel('Values')
+    ax.set_ylabel('Players')
+    ax.get_yaxis().set_visible(False)
+    plt.title('Graph Players/Values')
+    plt.legend()
+    #plt.show()
+    fig.savefig(f"{ctx.guild.name}/compare.png")
+
+    return f"{ctx.guild.name}/compare.png"
