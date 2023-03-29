@@ -123,10 +123,9 @@ def stat_player_value(ctx, data):
     fig , ax= plt.subplots()  
     for i in range(labels.size):
         plt.plot(X[i], label=labels[i])
-    ax.set_xlabel('Values')
-    ax.set_ylabel('Players')
-    ax.get_yaxis().set_visible(False)
-    plt.title('Graph Players/Values')
+    ax.set_xlabel('Number of Rolls')
+    ax.set_ylabel('Value')
+    plt.title('Rolls Comparison')
     plt.legend()
     #plt.show()
     fig.savefig(f"{ctx.guild.name}/compare.png")
