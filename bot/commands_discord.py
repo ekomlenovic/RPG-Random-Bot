@@ -56,13 +56,17 @@ data = {}
     help='This command rolls a random number between 0 and the specified number (default: 100). For example, to roll a number between 0 and 50, you can use the command "!r 50".'
 )
 async def r(ctx, number: int = 100):
+    if number < 0:
+        number *= -1
+    if number <= MIN:
+        number += MIN
     if not os.path.exists(ctx.guild.name):
         os.makedirs(ctx.guild.name)
     value = random.randrange(MIN, number+1)
     _value = value / number * 100
     user = ctx.author.display_name
     update_csv(ctx, user, _value, loadCSV(ctx))
-    x = await ctx.send(f"```{ctx.author.display_name} "+ made + str(value) + space + on + "[" + str(number) + "]```")
+    x = await ctx.send(f"```{ctx.author.display_name} "+ made + str(value) + space + on + "[" + str(MIN) + "..."+ str(number) + "]```")
     await ctx.message.delete()
 
     if value == MIN:
@@ -192,7 +196,6 @@ async def on_reaction_add(reaction, user):
     emoji = reaction.emoji
     if user.bot:
         return
-
     if emoji == '\N{CROSS MARK}':
         await reaction.message.reply(str(user.display_name) + space + laught)
     elif emoji == '\N{WHITE HEAVY CHECK MARK}':
