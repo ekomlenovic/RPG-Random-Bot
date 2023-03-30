@@ -34,6 +34,8 @@ PREFIX = config['prefix']
 MIN = config['min']
 ROLE = config['role']
 
+processed_reactions = {}
+
 class Mybot(commands.Bot):
     async def on_ready(self):
         activity = discord.Game(name='RP', type=discord.ActivityType.playing)
@@ -194,12 +196,22 @@ async def on_command_error(ctx, error):
 @bot.event
 async def on_reaction_add(reaction, user):
     emoji = reaction.emoji
-    if user.bot:
+    if reaction.message.id in processed_reactions and user.id in processed_reactions[reaction.message.id]:
         return
-    if emoji == '\N{CROSS MARK}':
-        await reaction.message.reply(str(user.display_name) + space + laught)
-    elif emoji == '\N{WHITE HEAVY CHECK MARK}':
-        await reaction.message.reply(str(user.display_name) + space + congratulate)
+    else:        
+        if user.bot:
+            return
+        if emoji == '\N{CROSS MARK}':
+            await reaction.message.reply(str(user.display_name) + space + laught)
+            if reaction.message.id not in processed_reactions:
+                processed_reactions[reaction.message.id] = []
+            processed_reactions[reaction.message.id].append(user.id)
+        elif emoji == '\N{WHITE HEAVY CHECK MARK}':
+            await reaction.message.reply(str(user.display_name) + space + congratulate)
+            if reaction.message.id not in processed_reactions:
+                processed_reactions[reaction.message.id] = []
+            processed_reactions[reaction.message.id].append(user.id)
+    print(processed_reactions)
 
 
 bot.run(TOKEN)
