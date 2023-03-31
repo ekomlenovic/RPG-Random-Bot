@@ -210,12 +210,14 @@ async def stat(ctx):
 
 @bot.event
 async def on_command_error(ctx, error):
-    command_list = '\n'.join([f'\t{c.name}: {c.description}' for c in bot.commands])
+    command_list = [c for c in bot.commands if not c.hidden]
+
+    commands_str = '\n'.join([f'    {c.name}: {c.description}' for c in command_list])
 
     # Check if the error is a CommandNotFound error
     if isinstance(error, commands.CommandNotFound):
         # If the command is not found, send the help message to the user
-        await ctx.send(f'```Sorry, I don\'t recognize that command. Here is a list of the commands that I know:\n{command_list}```')
+        await ctx.send(f'```Sorry, I don\'t recognize that command. Here is a list of the commands that I know:\n{commands_str}```')
     else:
         # For other types of errors, print the error to the console
         print(error)
