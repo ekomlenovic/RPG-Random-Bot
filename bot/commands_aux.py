@@ -84,7 +84,6 @@ def plot_aux(ctx, name, data):
     ax.set_ylabel('Frequency')
     ax.set_xticks(bins)
     ax.set_title(f'{name}_statistics({plot_data["Number of Rolls"]} rolls)')
-    #plt.show()
     fig.savefig(f"{ctx.guild.name}/users/{name}_plot.png")
 
 
@@ -129,7 +128,6 @@ def stat_player_value(ctx, data):
     ax.set_ylabel('Value')
     plt.title('Rolls Comparison')
     plt.legend()
-    #plt.show()
     fig.savefig(f"{ctx.guild.name}/compare.png")
 
     return f"{ctx.guild.name}/compare.png"

@@ -8,8 +8,8 @@
 
 login = "Connecté en tant que "
 space = " "
-made = "a fait : "
-on = "sur "
+made = "a fait :"
+on = "sur"
 laught = " se moque de toi ! "
 congratulate = " te félicite ! "
 value_of_roll = "Valeur de lancer"
