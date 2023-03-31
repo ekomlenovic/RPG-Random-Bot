@@ -2,5 +2,5 @@
     "token": "OTAwNTE4MDkyOTQ0MzI2Njg2.GEmt47.DuLU4qT-7p8sN6CLoy2MPhCd8e2Hi3EvfaN4eY",
     "prefix": "!",
     "min": 1,
-    "role" : "The_Role"
+    "role" : "The_Role_Optionnal_if_you_have_admin_permission"
 }

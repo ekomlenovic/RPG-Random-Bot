@@ -17,7 +17,8 @@ In **config.json** put your discord bot token in
 {
     "token": "Your_Bot_Token_Or_Ask_Me_For_It",
     "prefix": "!",
-    "min": 1
+    "min": 1,
+    "role" : "The_Role_Optionnal_if_you_have_admin_permission"
 }
 ```  
 You can also modify the min and the prefix of le bot  
