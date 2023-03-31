@@ -55,7 +55,7 @@ Please make sure to update tests as appropriate.
 
 ## Contributor
 
-Special thanks to Saprinox
+Special thanks to [Saprinox](https://github.com/Saprinox)
 
 ## License
 
