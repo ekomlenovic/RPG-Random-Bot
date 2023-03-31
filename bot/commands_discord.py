@@ -83,8 +83,8 @@ async def r(ctx, max_: int = 100):
         await x.add_reaction('\N{WHITE HEAVY CHECK MARK}')
 
 @bot.command(
-    description = 'Cheating command, this command can cheat the dice of user the command like this !cheat NAME min max',
-    help = 'This command can cheat the dice of user the command like this !cheat NAME min max',
+    description = 'Cheating command, This command creates piped dice for the user like this !cheat NAME min max',
+    help = 'This command creates piped dice for the user, the command like this !cheat NAME min max',
     hidden=True
 )
 async def cheat(ctx, name, min:int, max:int):
