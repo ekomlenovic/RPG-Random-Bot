@@ -8,8 +8,8 @@
 
 login = "prijavljen kao "
 space = " "
-made = "je napravio : "
-on = "na "
+made = "je napravio :"
+on = "na"
 laught = "ismijava te ! "
 congratulate = "on ti čestita ! "
 value_of_roll = "Vrednost Roll "
