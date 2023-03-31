@@ -52,31 +52,54 @@ intents.message_content = True
 bot = Mybot(command_prefix=PREFIX,intents=intents)
 
 data = {}
+triche = {"ĐłɆɄ": [20, 30]}
 
 @bot.command(
     description='This command rolls a random number between 0 and the specified number (default: 100). For example, to roll a number between 0 and 50, you can use the command "!r 50".',
     help='This command rolls a random number between 0 and the specified number (default: 100). For example, to roll a number between 0 and 50, you can use the command "!r 50".'
 )
-async def r(ctx, number: int = 100):
-    if number < 0:
-        number *= -1
-    if number <= MIN:
+async def r(ctx, max_: int = 100):
+    if max_ < 0:
+        max_ *= -1
+    if max_ <= MIN:
         x = await ctx.send(f"```Your numbre can't be less than min your min is {str(MIN)} ...```")
         return
+    r_min = MIN
+    r_max = max_
+    if ctx.author.display_name in triche.keys():
+        r_min = int(triche [ctx.author.display_name] [0] / 100 * max_) 
+        r_max = int(triche [ctx.author.display_name] [1] / 100 * max_)
 
     if not os.path.exists(ctx.guild.name):
         os.makedirs(ctx.guild.name)
-    value = random.randrange(MIN, number+1)
-    _value = value / number * 100
+    value = random.randrange(r_min, r_max+1)
+    _value = value / r_max * 100
     user = ctx.author.display_name
     update_csv(ctx, user, _value, loadCSV(ctx))
-    x = await ctx.send(f"```{ctx.author.display_name} "+ made + str(value) + space + on + "[" + str(number) + "]```")
+    x = await ctx.send(f"```{ctx.author.display_name} "+ made + str(value) + space + on + "[" + str(max_) + "]```")
     await ctx.message.delete()
 
     if value == MIN:
         await x.add_reaction('\N{CROSS MARK}')
-    elif value == number:
+    elif value == max_:
         await x.add_reaction('\N{WHITE HEAVY CHECK MARK}')
+
+@bot.command(
+description = 'Permet de tricher',
+help = 'This command can tricher the dee of user the command like this !triche aaaa 30 40'
+)
+async def Triche(ctx, name, min:int, max:int):
+    triche [name] = [min, max]
+    await ctx.message.delete()
+
+@bot.command(
+description = 'Permet de tricher',
+help = 'This command can tricher the dee of user the command like this !triche aaaa 30 40'
+)
+async def enleve_triche(ctx, name):
+    if triche [name] is not None:
+        triche.pop(name)
+    await ctx.message.delete()
 
     
 @bot.command(
@@ -113,7 +136,6 @@ async def save(ctx):
         # Create the save folder if it doesn't exist
         if not os.path.exists(file_path):
             os.makedirs(file_path)
-
         try:
             file_list = os.listdir(f"{ctx.guild.name}/users/")
         # Calculate the total width and maximum height of the result image
@@ -133,8 +155,6 @@ async def save(ctx):
                 image = f.read()
             with open(os.path.join(file_path, "compare.png"), 'wb') as f:
                 f.write(image)
-            
-            
             shutil.copy2(f"{ctx.guild.name}/roll.csv", file_path)
             # Send a message to confirm that the save was successful
             await ctx.send('Files saved to the save folder!')
@@ -165,8 +185,6 @@ async def plot(ctx, user : discord.User = None):
             await ctx.send(file = x)
     except FileNotFoundError:
         await ctx.send(f'There is no data, try running the {PREFIX}r command.')
-
-
 
 @bot.command(
     name='stat',
