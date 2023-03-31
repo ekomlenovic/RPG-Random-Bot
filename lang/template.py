@@ -8,8 +8,8 @@
 
 login = "Logged in as "
 space = " "
-made = "has made : "
-on = "on "
+made = "has made :"
+on = "on"
 laught = "is making fun of you "
 congratulate = "congratulates you ! "
 value_of_roll = "Value of Roll "
