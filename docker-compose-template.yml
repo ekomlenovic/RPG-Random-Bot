@@ -1,0 +1,14 @@
+# Make sure to build image first
+# docker build -t rpg-rand-bot .
+version: '3'
+services:
+  rpg-rand-bot:
+    container_name: rpg-rand-bot
+    image: rpg_rand_bot:latest
+    environment:
+      - BOT_TOKEN=bot_token_here
+      - BOT_PREFIX=!
+      - BOT_MIN=1
+      - BOT_ROLE=your_actual_role
+    volumes:
+      - /home/docker/rpg-rand-bot/data:/app/data
