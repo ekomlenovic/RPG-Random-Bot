@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 def loadCSV(ctx):
     data = {}
     try:
-        with open(f"{ctx.guild.name}/roll.csv", mode="r", encoding='utf-8', newline="") as file:
+        with open(f"data/{ctx.guild.name}/roll.csv", mode="r", encoding='utf-8', newline="") as file:
             reader = csv.reader(file)
             for i, row in enumerate(reader):
                 if i == 0:
@@ -20,7 +20,7 @@ def loadCSV(ctx):
         return data
     except FileNotFoundError:
         print("File not found, creating the file")
-        with open(f"{ctx.guild.name}/roll.csv", mode="w", encoding='utf-8', newline=""):
+        with open(f"data/{ctx.guild.name}/roll.csv", mode="w", encoding='utf-8', newline=""):
             return data
 
 def update_csv(ctx, name, value, data):
@@ -32,14 +32,12 @@ def update_csv(ctx, name, value, data):
         data[name].append(value)
     else:
         data[name] = [value]
-    with open(f"{ctx.guild.name}/roll.csv", mode="w", encoding='utf-8', newline="") as file:
+    with open(f"data/{ctx.guild.name}/roll.csv", mode="w", encoding='utf-8', newline="") as file:
         writer = csv.writer(file)
         writer.writerow(["Name"] + [f"Value_{i}" for i in range(0, size+1)])
         for name, values in data.items():
             writer.writerow([name] + values)
     return data
-
-
 
 def stat(name, data):
     name_data = data.loc[data['Name'] == name].iloc[:, 1:].values
@@ -84,50 +82,36 @@ def plot_aux(ctx, name, data):
     ax.set_ylabel('Frequency')
     ax.set_xticks(bins)
     ax.set_title(f'{name}_statistics({plot_data["Number of Rolls"]} rolls)')
-    fig.savefig(f"{ctx.guild.name}/users/{name}_plot.png")
-
-
-
-
+    fig.savefig(f"data/{ctx.guild.name}/users/{name}_plot.png")
 
 def send_to_discord(ctx):
     images = []
-    
-    file_list = os.listdir(f"{ctx.guild.name}/users/")
-
+    file_list = os.listdir(f"data/{ctx.guild.name}/users/")
     png_files = [f for f in file_list if f.endswith('.png')]
-
     for file_name in png_files:
-        file_path = os.path.join(f"{ctx.guild.name}/users/", file_name)
+        file_path = os.path.join(f"data/{ctx.guild.name}/users/", file_name)
         image = Image.open(file_path)
         images.append(image)
-    
     total_width = sum(image.width for image in images)
     max_height = max(image.height for image in images)
-
     result_image = Image.new('RGB', (total_width, max_height))
     x_offset = 0
     for image in images:
         result_image.paste(image, (x_offset, 0))
         x_offset += image.width
-
-    result_image.save(f"{ctx.guild.name}/statistic.png")
-
-    result_file = discord.File(f"{ctx.guild.name}/statistic.png")
-
+    result_image.save(f"data/{ctx.guild.name}/statistic.png")
+    result_file = discord.File(f"data/{ctx.guild.name}/statistic.png")
     return result_file
-
 
 def stat_player_value(ctx, data):
     X = data.iloc[:, 1:].values
-    labels = data.iloc[:, 0].values   
-    fig , ax= plt.subplots()  
+    labels = data.iloc[:, 0].values
+    fig , ax= plt.subplots()
     for i in range(labels.size):
         plt.plot(X[i], label=labels[i])
     ax.set_xlabel('Number of Rolls')
     ax.set_ylabel('Value')
     plt.title('Rolls Comparison')
     plt.legend()
-    fig.savefig(f"{ctx.guild.name}/compare.png")
-
-    return f"{ctx.guild.name}/compare.png"
+    fig.savefig(f"data/{ctx.guild.name}/compare.png")
+    return f"data/{ctx.guild.name}/compare.png"

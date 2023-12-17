@@ -1,0 +1,6 @@
+discord==2.2.2
+discord.py==2.2.2
+numpy==1.24.2
+matplotlib==3.7.1
+Pillow==9.4.0
+pandas==1.5.3
